@@ -1,9 +1,9 @@
 FROM        scratch
 
-ADD         etcd-v0.4.6-linux-amd64/etcd        /bin/etcd
+ADD         etcd-v0.4.9-linux-amd64/etcd        /bin/etcd
 
 # exclude the cli tool to reduce the size of the image
-#ADD         etcd-v0.4.6-linux-amd64/etcdctl     /bin/etcdctl
+#ADD         etcd-v0.4.9-linux-amd64/etcdctl     /bin/etcdctl
 
 VOLUME ["/data"]
 
