@@ -1,8 +1,8 @@
 Repo containing Dockerfile to create a buxybox based ETCD image. 
 Clone of `microbox/etcd` with upgraded version of ETCD
 
-ETCD Version: 2.0.5
-Size: 12.68 MB
+ETCD Version: 2.0.8
+Size: 12.81 MB
 
 ### Usage
 
