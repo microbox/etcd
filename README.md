@@ -8,5 +8,5 @@ Size: 12.81 MB
 
     docker run --rm -it -p 4001:4001 7001:7001 -v /var/etcd/:/data anapsix/etcd:latest --help
 
-Alternativly, you can start a local single node cluster with included script: `start_etcd.sh`
+Alternativly, you can start a local single node cluster with included script: [start_etcd.sh](https://raw.githubusercontent.com/anapsix/etcd/master/start_etcd.sh)
 
