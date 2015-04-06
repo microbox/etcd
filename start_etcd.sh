@@ -2,10 +2,11 @@
 # example script to start a single node ETCD cluster on localhost
 
 HOSTNAME="$(hostname -s)"
-LISTEN_ADDRESS="$(hostname -i)"
+LISTEN_ADDRESS="${LISTEN_ADDRESS:-$(hostname -i)}"
 
 ETCD_CLUSTER_TOKEN="${ETCD_CLUSTER_TOKEN:-cluster-$[${RANDOM%100000}+10000]}"
-ETCD_INITIAL_CLUSTER="${HOSTNAME:-localhost}=http://${LISTEN_ADDRESS}:7001"
+ETCD_INITIAL_CLUSTER="${ETCD_INITIAL_CLUSTER:-${HOSTNAME:-localhost}=http://${LISTEN_ADDRESS}:7001}"
+ETCD_INITIAL_CLUSTER_STATE=${ETCD_INITIAL_CLUSTER_STATE:-existing}
 
 DOCKER_NAME="etcd"
 
@@ -20,7 +21,7 @@ docker run -d \
   -p ${DOCKER_LISTEN_ADDRESS:+$DOCKER_LISTEN_ADDRESS:}7001:7001 \
   -p ${DOCKER_LISTEN_ADDRESS:+$DOCKER_LISTEN_ADDRESS:}4001:4001 \
   ${DATA_DIR:+"-v ${DATA_DIR}:/data"} \
-  anapsix/etcd --name "${HOSTNAME:-localhost}" --initial-advertise-peer-urls "http://${LISTEN_ADDRESS}:7001" --listen-peer-urls "http://0.0.0.0:7001" --listen-client-urls "http://0.0.0.0:4001" --advertise-client-urls "http://${LISTEN_ADDRESS}:4001" --initial-cluster "${ETCD_INITIAL_CLUSTER}" --initial-cluster-state "new" --initial-cluster-token "${ETCD_CLUSTER_TOKEN}" --discovery-fallback "proxy"
+  anapsix/etcd --name "${HOSTNAME:-localhost}" --initial-advertise-peer-urls "http://${LISTEN_ADDRESS}:7001" --listen-peer-urls "http://0.0.0.0:7001" --listen-client-urls "http://0.0.0.0:4001" --advertise-client-urls "http://${LISTEN_ADDRESS}:4001" --initial-cluster "${ETCD_INITIAL_CLUSTER}" --initial-cluster-state "${ETCD_INITIAL_CLUSTER_STATE}" --initial-cluster-token "${ETCD_CLUSTER_TOKEN}" --discovery-fallback "proxy"
 }
 
 check_container_status() {
