@@ -1,4 +1,4 @@
-FROM        scratch
+FROM        microbox/scratch
 
 ADD         etcd-v0.4.6-linux-amd64/etcd        /bin/etcd
 
